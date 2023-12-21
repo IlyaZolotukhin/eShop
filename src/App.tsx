@@ -1,31 +1,53 @@
-import { useState } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { Link, Route, Routes } from 'react-router-dom'
 
-import './App.css'
+import Error404 from '@/components/Error/Error404'
+import Products from '@/components/Products'
+import { AppBar, Button, Container, Grid, Toolbar, Typography } from '@mui/material'
 
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Cart from './components/Cart'
+import Checkout from './components/Checkout'
+import { RootState } from './store'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const items = useSelector((state: RootState) => state.cart.items)
+  const total = items.reduce((sum, item) => sum + item.price, 0)
 
   return (
     <>
-      <div>
-        <a href={'https://vitejs.dev'} rel={'noreferrer'} target={'_blank'}>
-          <img alt={'Vite logo'} className={'logo'} src={viteLogo} />
-        </a>
-        <a href={'https://react.dev'} rel={'noreferrer'} target={'_blank'}>
-          <img alt={'React logo'} className={'logo react'} src={reactLogo} />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className={'card'}>
-        <button onClick={() => setCount(count => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className={'read-the-docs'}>Click on the Vite and React logos to learn more</p>
+      <AppBar position={'static'}>
+        <Toolbar>
+          <Typography component={'div'} sx={{ flexGrow: 1 }} variant={'h6'}>
+            My Shop
+          </Typography>
+          <Button color={'inherit'} component={Link} to={'/'}>
+            Home
+          </Button>
+          <Button color={'inherit'} component={Link} to={'/cart'}>
+            Cart
+          </Button>
+          {total ? (
+            <Typography color={'text.secondary'} component={'div'} variant={'h6'}>
+              Total: ${total}
+            </Typography>
+          ) : (
+            ''
+          )}
+        </Toolbar>
+      </AppBar>
+      <Container sx={{ marginTop: 2 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={9}>
+            <Routes>
+              <Route element={<Products />} path={'/'} />
+              <Route element={<Cart />} path={'/cart'} />
+              <Route element={<Checkout />} path={'/checkout'} />
+              <Route element={<Error404 />} path={'*'} />
+            </Routes>
+          </Grid>
+        </Grid>
+      </Container>
     </>
   )
 }
