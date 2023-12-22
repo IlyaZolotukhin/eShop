@@ -9,13 +9,14 @@ interface ProductCardProps {
   id: number
   name: string
   price: number
+  quantity: number
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ id, name, price }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ id, name, price, quantity }) => {
   const dispatch = useDispatch()
 
   const handleAddToCart = () => {
-    dispatch(addItem({ id, name, price }))
+    dispatch(addItem({ id, name, price, quantity }))
   }
 
   return (

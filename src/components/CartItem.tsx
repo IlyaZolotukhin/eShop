@@ -1,21 +1,29 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
+import { removeItem } from '@/features/cart/cartSlice'
 import { Button, Card, CardContent, Typography } from '@mui/material'
-
-import { removeItem } from '../features/cart/cartSlice'
 
 interface CartItemProps {
   id: number
   name: string
   price: number
+  quantity: number
 }
 
-const CartItem: React.FC<CartItemProps> = ({ id, name, price }) => {
+const CartItem: React.FC<CartItemProps> = ({ id, name, price, quantity }) => {
   const dispatch = useDispatch()
 
   const handleRemoveFromCart = () => {
     dispatch(removeItem(id))
+  }
+
+  const handleDecreaseItem = () => {
+    /* setCount(count--)*/
+  }
+
+  const handleIncreaseItem = () => {
+    /* setCount(count++)*/
   }
 
   return (
@@ -27,9 +35,18 @@ const CartItem: React.FC<CartItemProps> = ({ id, name, price }) => {
         <Typography color={'text.secondary'} variant={'body1'}>
           Price: ${price}
         </Typography>
-        <Button onClick={handleRemoveFromCart} variant={'contained'}>
-          Remove from Cart
-        </Button>
+        <Typography color={'text.secondary'} variant={'body1'}>
+          <Button onClick={handleRemoveFromCart} variant={'contained'}>
+            delete
+          </Button>
+          <Button onClick={handleDecreaseItem} variant={'contained'}>
+            -
+          </Button>
+          {quantity}
+          <Button onClick={handleIncreaseItem} variant={'contained'}>
+            +
+          </Button>
+        </Typography>
       </CardContent>
     </Card>
   )

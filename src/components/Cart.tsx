@@ -24,7 +24,13 @@ const Cart: React.FC = () => {
         )}
 
         {items.map(item => (
-          <CartItem id={item.id} key={item.id} name={item.name} price={item.price} />
+          <CartItem
+            id={item.id}
+            key={item.id}
+            name={item.name}
+            price={item.price}
+            quantity={item.quantity}
+          />
         ))}
         <Typography color={'text.secondary'} variant={'body1'}>
           Total: ${total}
