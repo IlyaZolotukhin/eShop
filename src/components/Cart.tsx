@@ -1,14 +1,15 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
-import { Card, CardContent, Typography } from '@mui/material'
+import { Button, Card, CardContent, Typography } from '@mui/material'
 
 import { RootState } from '../store'
 import CartItem from './CartItem'
 
 const Cart: React.FC = () => {
   const items = useSelector((state: RootState) => state.cart.items)
-  const total = items.reduce((sum, item) => sum + item.price, 0)
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
   return (
     <Card>
@@ -16,6 +17,14 @@ const Cart: React.FC = () => {
         {items.length > 0 ? (
           <Typography component={'div'} variant={'h5'}>
             Cart
+            <Button
+              component={Link}
+              style={{ margin: '10px' }}
+              to={'/checkout'}
+              variant={'contained'}
+            >
+              Order
+            </Button>
           </Typography>
         ) : (
           <Typography component={'div'} variant={'h5'}>
@@ -28,6 +37,7 @@ const Cart: React.FC = () => {
             id={item.id}
             key={item.id}
             name={item.name}
+            photo={item.photo}
             price={item.price}
             quantity={item.quantity}
           />

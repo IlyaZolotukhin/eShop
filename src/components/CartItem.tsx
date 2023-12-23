@@ -1,17 +1,21 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
-import { removeItem } from '@/features/cart/cartSlice'
+import { decreaseItem, increaseItem, removeItem } from '@/features/cart/cartSlice'
+import AddIcon from '@mui/icons-material/Add'
+import DeleteIcon from '@mui/icons-material/Delete'
+import RemoveIcon from '@mui/icons-material/Remove'
 import { Button, Card, CardContent, Typography } from '@mui/material'
 
 interface CartItemProps {
   id: number
   name: string
+  photo: string
   price: number
   quantity: number
 }
 
-const CartItem: React.FC<CartItemProps> = ({ id, name, price, quantity }) => {
+const CartItem: React.FC<CartItemProps> = ({ id, name, photo, price, quantity }) => {
   const dispatch = useDispatch()
 
   const handleRemoveFromCart = () => {
@@ -19,11 +23,15 @@ const CartItem: React.FC<CartItemProps> = ({ id, name, price, quantity }) => {
   }
 
   const handleDecreaseItem = () => {
-    /* setCount(count--)*/
+    if (quantity > 1) {
+      dispatch(decreaseItem(id))
+    } else {
+      dispatch(removeItem(id))
+    }
   }
 
   const handleIncreaseItem = () => {
-    /* setCount(count++)*/
+    dispatch(increaseItem(id))
   }
 
   return (
@@ -32,19 +40,26 @@ const CartItem: React.FC<CartItemProps> = ({ id, name, price, quantity }) => {
         <Typography component={'div'} variant={'h5'}>
           {name}
         </Typography>
+        <img
+          alt={photo}
+          loading={'lazy'}
+          src={`${photo}?w=164&h=164&fit=crop&auto=format`}
+          srcSet={`${photo}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+          style={{ height: 100, width: 100 }}
+        />
         <Typography color={'text.secondary'} variant={'body1'}>
           Price: ${price}
         </Typography>
         <Typography color={'text.secondary'} variant={'body1'}>
-          <Button onClick={handleRemoveFromCart} variant={'contained'}>
-            delete
+          <Button onClick={handleRemoveFromCart} variant={'outlined'}>
+            <DeleteIcon />
           </Button>
-          <Button onClick={handleDecreaseItem} variant={'contained'}>
-            -
+          <Button onClick={handleDecreaseItem} variant={'text'}>
+            <RemoveIcon />
           </Button>
           {quantity}
-          <Button onClick={handleIncreaseItem} variant={'contained'}>
-            +
+          <Button onClick={handleIncreaseItem} variant={'text'}>
+            <AddIcon />
           </Button>
         </Typography>
       </CardContent>

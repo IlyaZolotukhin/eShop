@@ -4,7 +4,10 @@ import { Link, Route, Routes } from 'react-router-dom'
 
 import Error404 from '@/components/Error/Error404'
 import Products from '@/components/Products'
-import { AppBar, Button, Container, Grid, Toolbar, Typography } from '@mui/material'
+import HomeIcon from '@mui/icons-material/Home'
+import PaymentIcon from '@mui/icons-material/Payment'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import { AppBar, Button, Container, Toolbar, Tooltip, Typography } from '@mui/material'
 
 import Cart from './components/Cart'
 import Checkout from './components/Checkout'
@@ -12,7 +15,7 @@ import { RootState } from './store'
 
 const App: React.FC = () => {
   const items = useSelector((state: RootState) => state.cart.items)
-  const total = items.reduce((sum, item) => sum + item.price, 0)
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
   return (
     <>
@@ -22,10 +25,19 @@ const App: React.FC = () => {
             My Shop
           </Typography>
           <Button color={'inherit'} component={Link} to={'/'}>
-            Home
+            <Tooltip title={'to shopping'}>
+              <HomeIcon />
+            </Tooltip>
+          </Button>
+          <Button color={'inherit'} component={Link} to={'/'}>
+            <Tooltip title={'pay for the order'}>
+              <PaymentIcon />
+            </Tooltip>
           </Button>
           <Button color={'inherit'} component={Link} to={'/cart'}>
-            Cart
+            <Tooltip title={'go to cart'}>
+              <ShoppingCartIcon />
+            </Tooltip>
           </Button>
           {total ? (
             <Typography color={'text.secondary'} component={'div'} variant={'h6'}>
@@ -36,17 +48,13 @@ const App: React.FC = () => {
           )}
         </Toolbar>
       </AppBar>
-      <Container sx={{ marginTop: 2 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={9}>
-            <Routes>
-              <Route element={<Products />} path={'/'} />
-              <Route element={<Cart />} path={'/cart'} />
-              <Route element={<Checkout />} path={'/checkout'} />
-              <Route element={<Error404 />} path={'*'} />
-            </Routes>
-          </Grid>
-        </Grid>
+      <Container fixed style={{ margin: '20px' }}>
+        <Routes>
+          <Route element={<Products />} path={'/'} />
+          <Route element={<Cart />} path={'/cart'} />
+          <Route element={<Checkout />} path={'/checkout'} />
+          <Route element={<Error404 />} path={'*'} />
+        </Routes>
       </Container>
     </>
   )
