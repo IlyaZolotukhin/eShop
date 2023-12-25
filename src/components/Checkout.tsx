@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { Button, Card, CardContent, Typography } from '@mui/material'
 
@@ -27,7 +28,13 @@ const Checkout: React.FC = () => {
           </div>
         ))}
         <Typography color={'div'} style={{ margin: '20px 0' }} variant={'h5'}>
-          <Button onClick={handlePlaceOrder} style={{ margin: '0 10px 0 0' }} variant={'contained'}>
+          <Button
+            component={Link}
+            onClick={handlePlaceOrder}
+            style={{ margin: '0 10px 0 0' }}
+            to={'/payment'}
+            variant={'contained'}
+          >
             Place Order
           </Button>
           Total: ${total}
