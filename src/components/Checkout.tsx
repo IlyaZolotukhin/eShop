@@ -30,6 +30,7 @@ const Checkout: React.FC = () => {
         <Typography color={'div'} style={{ margin: '20px 0' }} variant={'h5'}>
           <Button
             component={Link}
+            disabled={total === 0}
             onClick={handlePlaceOrder}
             style={{ margin: '0 10px 0 0' }}
             to={'/payment'}

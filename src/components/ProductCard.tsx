@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { RootState } from '@/store'
-import { Button, Card, CardContent, Typography } from '@mui/material'
+import { Button, Card, CardContent, CardMedia, Typography } from '@mui/material'
 
 import { addItem, increaseItem } from '../features/cart/cartSlice'
 
@@ -34,13 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, name, photo, price, quant
         <Typography component={'div'} variant={'h5'}>
           {name}
         </Typography>
-        <img
-          alt={photo}
-          loading={'lazy'}
-          src={`${photo}?w=164&h=164&fit=crop&auto=format`}
-          srcSet={`${photo}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-          style={{ height: 300, width: 300 }}
-        />
+        <CardMedia alt={name} component={'img'} height={'300'} image={photo} />
         <Typography color={'text.secondary'} variant={'body1'}>
           Price: ${price}
         </Typography>

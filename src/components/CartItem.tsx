@@ -5,7 +5,7 @@ import { decreaseItem, increaseItem, removeItem } from '@/features/cart/cartSlic
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
 import RemoveIcon from '@mui/icons-material/Remove'
-import { Button, Card, CardContent, Typography } from '@mui/material'
+import { Button, Card, CardContent, CardMedia, Typography } from '@mui/material'
 
 interface CartItemProps {
   id: number
@@ -40,13 +40,7 @@ const CartItem: React.FC<CartItemProps> = ({ id, name, photo, price, quantity })
         <Typography component={'div'} variant={'h5'}>
           {name}
         </Typography>
-        <img
-          alt={photo}
-          loading={'lazy'}
-          src={`${photo}?w=164&h=164&fit=crop&auto=format`}
-          srcSet={`${photo}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-          style={{ height: 100, width: 100 }}
-        />
+        <CardMedia alt={name} component={'img'} image={photo} style={{ height: 100, width: 100 }} />
         <Typography color={'text.secondary'} variant={'body1'}>
           Price: ${price}
         </Typography>
