@@ -1,6 +1,7 @@
+import { Dispatch } from 'react'
+
 import { db } from '@/main'
-import { AppThunk } from '@/store'
-import { createSlice } from '@reduxjs/toolkit'
+import { AnyAction, createSlice } from '@reduxjs/toolkit'
 import { get, ref } from 'firebase/database'
 
 interface ProductState {
@@ -24,7 +25,8 @@ const productSlice = createSlice({
 export const { setItems } = productSlice.actions
 export default productSlice.reducer
 
-export const fetchProducts = (): AppThunk => async dispatch => {
+// createAsyncThunk
+export const fetchProducts = () => async (dispatch: Dispatch<AnyAction>) => {
   try {
     const dataRef = ref(db, 'items')
     const snapshot = await get(dataRef)

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Link, Route, Routes } from 'react-router-dom'
 
 import CreditCardForm from '@/components/CreditCardForm'
@@ -13,12 +13,12 @@ import { AppBar, Button, Container, Toolbar, Tooltip, Typography } from '@mui/ma
 import Cart from './components/Cart'
 import Checkout from './components/Checkout'
 import { fetchProducts } from './features/product/productSlice'
-import { AppDispatch, RootState } from './store'
+import { RootState, useAppDispatch } from './store'
 
 const App: React.FC = () => {
   const items = useSelector((state: RootState) => state.cart.items)
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const dispatch: AppDispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(fetchProducts())

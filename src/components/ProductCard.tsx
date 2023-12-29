@@ -1,10 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { addItem, increaseItem } from '@/features/cart/cartSlice'
 import { RootState } from '@/store'
 import { Button, Card, CardContent, CardMedia, Typography } from '@mui/material'
-
-import { addItem, increaseItem } from '../features/cart/cartSlice'
 
 interface ProductCardProps {
   id: number

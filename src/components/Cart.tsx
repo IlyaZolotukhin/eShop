@@ -1,15 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import { setCart } from '@/features/cart/cartSlice'
+import { RootState, useAppDispatch } from '@/store'
 import { Button, Card, CardContent, Typography } from '@mui/material'
 
-import { RootState } from '../store'
 import CartItem from './CartItem'
 
 const Cart: React.FC = () => {
   const items = useSelector((state: RootState) => state.cart.items)
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    const savedCartItems = localStorage.getItem('cartItems')
+
+    if (savedCartItems) {
+      dispatch(setCart(JSON.parse(savedCartItems)))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (items.length === 0) {
+      return
+    }
+    localStorage.setItem('cartItems', JSON.stringify(items))
+  }, [items])
 
   return (
     <Card>
