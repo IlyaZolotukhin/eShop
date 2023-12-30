@@ -31,7 +31,7 @@ const App: React.FC = () => {
     if (savedCartItems) {
       dispatch(setCart(JSON.parse(savedCartItems)))
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <>
