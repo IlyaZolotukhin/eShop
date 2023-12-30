@@ -5,6 +5,7 @@ import { Link, Route, Routes } from 'react-router-dom'
 import CreditCardForm from '@/components/CreditCardForm'
 import Error404 from '@/components/Error/Error404'
 import Products from '@/components/Products'
+import { setCart } from '@/features/cart/cartSlice'
 import HomeIcon from '@mui/icons-material/Home'
 import PaymentIcon from '@mui/icons-material/Payment'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
@@ -23,6 +24,14 @@ const App: React.FC = () => {
   useEffect(() => {
     dispatch(fetchProducts())
   }, [dispatch])
+
+  useEffect(() => {
+    const savedCartItems = localStorage.getItem('cartItems')
+
+    if (savedCartItems) {
+      dispatch(setCart(JSON.parse(savedCartItems)))
+    }
+  }, [])
 
   return (
     <>

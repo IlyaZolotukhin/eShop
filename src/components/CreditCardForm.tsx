@@ -9,7 +9,10 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ onSubmit }) => {
   const [expirationDate, setExpirationDate] = useState('')
   const [cvv, setCvv] = useState('')
 
+  console.log(cardNumber + '' + expirationDate + '' + cvv)
+
   const handleSubmit = (e: React.FormEvent) => {
+    localStorage.removeItem('cartItems')
     e.preventDefault()
     onSubmit({ cardNumber, cvv, expirationDate })
   }
