@@ -1,7 +1,5 @@
-import { Dispatch } from 'react'
-
 import { db } from '@/main'
-import { AnyAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { get, ref } from 'firebase/database'
 
 interface ProductState {
@@ -12,11 +10,32 @@ const initialState: ProductState = {
   items: [],
 }
 
+export const fetchProducts = createAsyncThunk('product/fetchProducts', async () => {
+  const dataRef = ref(db, 'items')
+  const snapshot = await get(dataRef)
+
+  if (snapshot.exists()) {
+    return snapshot.val()
+  }
+
+  return []
+})
+
 const productSlice = createSlice({
+  extraReducers: builder => {
+    builder.addCase(fetchProducts.fulfilled, (state, action) => {
+      state.items = action.payload
+    })
+  },
   initialState,
   name: 'product',
   reducers: {
-    setItems: (state, action) => {
+    setItems: (
+      state,
+      action: PayloadAction<
+        { id: number; name: string; photo: string; price: number; quantity: number }[]
+      >
+    ) => {
       state.items = action.payload
     },
   },
@@ -24,19 +43,3 @@ const productSlice = createSlice({
 
 export const { setItems } = productSlice.actions
 export default productSlice.reducer
-
-// createAsyncThunk
-export const fetchProducts = () => async (dispatch: Dispatch<AnyAction>) => {
-  try {
-    const dataRef = ref(db, 'items')
-    const snapshot = await get(dataRef)
-
-    if (snapshot.exists()) {
-      const items = snapshot.val()
-
-      dispatch(setItems(items))
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
