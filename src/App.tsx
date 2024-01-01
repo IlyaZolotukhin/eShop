@@ -69,16 +69,7 @@ const App: React.FC = () => {
           <Route element={<Products />} path={'/'} />
           <Route element={<Cart />} path={'/cart'} />
           <Route element={<Checkout />} path={'/checkout'} />
-          <Route
-            element={
-              <CreditCardForm
-                onSubmit={function (): void {
-                  throw new Error('Function not implemented.')
-                }}
-              />
-            }
-            path={'/payment'}
-          />
+          <Route element={<CreditCardForm />} path={'/payment'} />
           <Route element={<Error404 />} path={'*'} />
         </Routes>
       </Container>

@@ -1,6 +1,7 @@
 {
   "name": "eshop",
   "private": true,
+  "homepage": "https://IlyaZolotukhin.github.io/eShop",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -8,7 +9,9 @@
     "build": "tsc && vite build",
     "format": "prettier --write src",
     "lint": "eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -18,9 +21,11 @@
     "@mui/icons-material": "^5.15.1",
     "@mui/material": "^5.15.1",
     "@mui/styled-engine-sc": "6.0.0-alpha.9",
+    "@mui/styles": "^5.15.2",
     "@reduxjs/toolkit": "^2.0.1",
     "firebase": "^10.7.1",
     "formik": "^2.4.5",
+    "gh-pages": "^6.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",

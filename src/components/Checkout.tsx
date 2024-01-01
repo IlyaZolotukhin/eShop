@@ -10,9 +10,7 @@ const Checkout: React.FC = () => {
   const items = useSelector((state: RootState) => state.cart.items)
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
-  const handlePlaceOrder = () => {
-    // Handle order placement logic here
-  }
+  const handlePlaceOrder = () => {}
 
   return (
     <Card>
