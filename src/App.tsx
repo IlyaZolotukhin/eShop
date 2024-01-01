@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, Route, Routes } from 'react-router-dom'
 
-import CreditCardForm from '@/components/CreditCardForm'
+import CreditCardForm from '@/components/CreditCardForm/CreditCardForm'
 import Error404 from '@/components/Error/Error404'
 import Products from '@/components/Products'
 import { setCart } from '@/features/cart/cartSlice'

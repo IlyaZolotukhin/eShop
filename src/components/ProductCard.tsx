@@ -33,7 +33,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, name, photo, price, quant
         <Typography component={'div'} variant={'h5'}>
           {name}
         </Typography>
-        <CardMedia alt={name} component={'img'} height={'300'} image={photo} />
+        <CardMedia alt={name} component={'img'} height={'250'} image={photo} />
         <Typography color={'text.secondary'} variant={'body1'}>
           Price: ${price}
         </Typography>
