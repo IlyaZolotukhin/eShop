@@ -30,7 +30,7 @@ export const db = getDatabase(app)
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={'eShop'}>
       <Provider store={store}>
         <App />
       </Provider>

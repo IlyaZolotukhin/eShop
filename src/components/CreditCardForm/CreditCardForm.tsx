@@ -8,9 +8,9 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Grid,
   TextField,
-} from '@material-ui/core'
-import { Grid } from '@mui/material'
+} from '@mui/material'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
