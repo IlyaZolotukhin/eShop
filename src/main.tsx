@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 
 import store from '@/store'
 import { initializeApp } from 'firebase/app'
@@ -30,10 +30,10 @@ export const db = getDatabase(app)
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <BrowserRouter basename={'eShop'}>
+    <HashRouter>
       <Provider store={store}>
         <App />
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   </StrictMode>
 )
