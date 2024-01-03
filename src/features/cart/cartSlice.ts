@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface CartState {
+export type CartState = {
   items: { id: number; name: string; photo: string; price: number; quantity: number }[]
 }
 
@@ -8,7 +8,7 @@ const initialState: CartState = {
   items: [],
 }
 
-const cartSlice = createSlice({
+export const cartSlice = createSlice({
   initialState,
   name: 'cart',
   reducers: {

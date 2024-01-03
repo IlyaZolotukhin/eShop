@@ -1,6 +1,4 @@
-import { StrictMode } from 'react'
 import { Provider } from 'react-redux'
-import { HashRouter } from 'react-router-dom'
 
 import store from '@/store'
 import { initializeApp } from 'firebase/app'
@@ -29,11 +27,7 @@ const app = initializeApp(firebaseConfig)
 export const db = getDatabase(app)
 
 createRoot(document.getElementById('root') as HTMLElement).render(
-  <StrictMode>
-    <HashRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </HashRouter>
-  </StrictMode>
+  <Provider store={store}>
+    <App />
+  </Provider>
 )
