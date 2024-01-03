@@ -34,7 +34,7 @@ const App: React.FC = () => {
   }, [dispatch])
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.NODE_ENV === 'production' ? '/eShop/' : '/'}>
       <AppBar position={'static'}>
         <Toolbar>
           <Typography component={'div'} sx={{ flexGrow: 1 }} variant={'h6'}>
