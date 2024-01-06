@@ -1,4 +1,5 @@
 import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
 
 import store from '@/store'
 import { initializeApp } from 'firebase/app'
@@ -9,7 +10,6 @@ import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
 
 import App from './App'
-import { BrowserRouter } from 'react-router-dom'
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -29,7 +29,7 @@ export const db = getDatabase(app)
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>
-    <BrowserRouter basename={process.env.NODE_ENV === 'production' ? '/eShop/' : '/'}>
+    <BrowserRouter basename={'/eShop/'}>
       <App />
     </BrowserRouter>
   </Provider>
