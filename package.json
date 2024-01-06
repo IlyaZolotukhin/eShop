@@ -12,7 +12,7 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "test": "react-scripts test"
+    "test": "jest"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 
 import CreditCardForm from '@/components/CreditCardForm/CreditCardForm'
 import Error404 from '@/components/Error/Error404'
@@ -34,7 +34,7 @@ const App: React.FC = () => {
   }, [dispatch])
 
   return (
-    <BrowserRouter basename={process.env.NODE_ENV === 'production' ? '/eShop/' : '/'}>
+    <>
       <AppBar position={'static'}>
         <Toolbar>
           <Typography component={'div'} sx={{ flexGrow: 1 }} variant={'h6'}>
@@ -73,7 +73,7 @@ const App: React.FC = () => {
           <Route element={<Error404 />} path={'*'} />
         </Routes>
       </Container>
-    </BrowserRouter>
+    </>
   )
 }
 
