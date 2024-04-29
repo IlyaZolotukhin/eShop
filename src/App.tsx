@@ -11,6 +11,8 @@ import PaymentIcon from '@mui/icons-material/Payment'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { AppBar, Button, Container, Toolbar, Tooltip, Typography } from '@mui/material'
 
+import s from './App.module.scss'
+
 import Cart from './components/Cart'
 import Checkout from './components/Checkout'
 import { fetchProducts } from './features/product/productSlice'
@@ -35,7 +37,7 @@ const App: React.FC = () => {
 
   return (
     <>
-      <AppBar position={'static'}>
+      <AppBar position={'fixed'}>
         <Toolbar>
           <Typography component={'div'} sx={{ flexGrow: 1 }} variant={'h6'}>
             My Shop
@@ -64,7 +66,7 @@ const App: React.FC = () => {
           )}
         </Toolbar>
       </AppBar>
-      <Container fixed>
+      <Container className={s.container}>
         <Routes>
           <Route element={<Products />} path={'/'} />
           <Route element={<Cart />} path={'/cart'} />
