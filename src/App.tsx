@@ -2,10 +2,12 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, Route, Routes } from 'react-router-dom'
 
+import AddProduct from '@/components/AddProduct'
 import CreditCardForm from '@/components/CreditCardForm/CreditCardForm'
 import Error404 from '@/components/Error/Error404'
 import Products from '@/components/Products'
 import { setCart } from '@/features/cart/cartSlice'
+import AddHomeIcon from '@mui/icons-material/AddHome'
 import HomeIcon from '@mui/icons-material/Home'
 import PaymentIcon from '@mui/icons-material/Payment'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
@@ -47,6 +49,11 @@ const App: React.FC = () => {
               <HomeIcon />
             </Tooltip>
           </Button>
+          <Button color={'inherit'} component={Link} to={'/'}>
+            <Tooltip title={'add product'}>
+              <AddHomeIcon />
+            </Tooltip>
+          </Button>
           <Button color={'inherit'} component={Link} to={'/checkout'}>
             <Tooltip title={'pay for the order'}>
               <PaymentIcon />
@@ -69,6 +76,7 @@ const App: React.FC = () => {
       <Container className={s.container}>
         <Routes>
           <Route element={<Products />} path={'/'} />
+          <Route element={<AddProduct />} path={'/add'} />
           <Route element={<Cart />} path={'/cart'} />
           <Route element={<Checkout />} path={'/checkout'} />
           <Route element={<CreditCardForm />} path={'/payment'} />
