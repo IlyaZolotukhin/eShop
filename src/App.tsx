@@ -49,7 +49,7 @@ const App: React.FC = () => {
               <HomeIcon />
             </Tooltip>
           </Button>
-          <Button color={'inherit'} component={Link} to={'/'}>
+          <Button color={'inherit'} component={Link} to={'/add'}>
             <Tooltip title={'add product'}>
               <AddHomeIcon />
             </Tooltip>

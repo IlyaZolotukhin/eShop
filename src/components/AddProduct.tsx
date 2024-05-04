@@ -1,26 +1,24 @@
-import firebase from 'firebase/database'
+import { useDispatch } from 'react-redux'
+
+import { sendDataToFirebase } from '@/features/product/productSlice'
 
 const AddProduct = () => {
-  const sendDataToFirebase = () => {
+  const dispatch = useDispatch()
+
+  const sendDataToFirebaseHandler = () => {
     const data = {
-      age: 30,
-      email: 'johndoe@example.com',
+      id: 30,
       name: 'John Doe',
+      photo:
+        'https://static.ru-mi.com/upload/resize_cache/iblock/9e4/440_440_1/ivzxm4nxe17ij2mycnh8p66hc3iw98bo.jpg',
+      price: 100,
+      quantity: 3,
     }
 
-    firebase
-      .database()
-      .ref('users')
-      .push(data)
-      .then(() => {
-        console.log('Data sent successfully')
-      })
-      .catch(error => {
-        console.error('Error sending data:', error)
-      })
+    dispatch(sendDataToFirebase(data))
   }
 
-  return <button onClick={sendDataToFirebase}>Send Data to Firebase</button>
+  return <button onClick={sendDataToFirebaseHandler}>Send Data to Firebase</button>
 }
 
 export default AddProduct

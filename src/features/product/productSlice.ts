@@ -1,8 +1,8 @@
 import { db } from '@/main'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { get, ref } from 'firebase/database'
+import { get, push, ref } from 'firebase/database'
 
-interface ProductState {
+export interface ProductState {
   items: { id: number; name: string; photo: string; price: number; quantity: number }[]
 }
 
@@ -19,6 +19,15 @@ export const fetchProducts = createAsyncThunk('product/fetchProducts', async () 
   }
 
   return []
+})
+
+export const sendDataToFirebase = createAsyncThunk('product/sendDataToFirebase', async data => {
+  try {
+    await push(ref(db, 'items'), data)
+    console.log('Data sent successfully')
+  } catch (error) {
+    console.error('Error sending data:', error)
+  }
 })
 
 const productSlice = createSlice({
