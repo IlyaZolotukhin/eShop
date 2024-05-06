@@ -21,7 +21,7 @@ export const fetchProducts = createAsyncThunk('product/fetchProducts', async () 
   return []
 })
 
-export const sendDataToFirebase = createAsyncThunk('product/sendDataToFirebase', async data => {
+export const sendProduct = createAsyncThunk('product/sendProduct', async data => {
   try {
     await push(ref(db, 'items'), data)
     console.log('Data sent successfully')
@@ -39,6 +39,9 @@ const productSlice = createSlice({
   initialState,
   name: 'product',
   reducers: {
+    addItem: (state, action) => {
+      state.items.push(action.payload)
+    },
     setItems: (
       state,
       action: PayloadAction<

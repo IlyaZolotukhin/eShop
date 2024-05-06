@@ -6,20 +6,22 @@ import { Grid } from '@mui/material'
 
 import { RootState } from '../store'
 
-const Cart: React.FC = () => {
+const Products: React.FC = () => {
   const items = useSelector((state: RootState) => state.product.items)
+
+  const products = Object.values(items)
 
   return (
     <Grid container spacing={2}>
-      {items.map(item => (
-        <Grid item key={item.id}>
+      {products.map(product => (
+        <Grid item key={product.id}>
           <ProductCard
-            id={item.id}
-            key={item.id}
-            name={item.name}
-            photo={item.photo}
-            price={item.price}
-            quantity={item.quantity}
+            id={product.id}
+            key={product.id}
+            name={product.name}
+            photo={product.photo}
+            price={product.price}
+            quantity={product.quantity}
           />
         </Grid>
       ))}
@@ -27,4 +29,4 @@ const Cart: React.FC = () => {
   )
 }
 
-export default Cart
+export default Products
