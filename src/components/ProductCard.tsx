@@ -6,7 +6,7 @@ import { RootState } from '@/store'
 import { Button, Card, CardContent, CardMedia, Typography } from '@mui/material'
 
 interface ProductCardProps {
-  id: number
+  id: string
   name: string
   photo: string
   price: number

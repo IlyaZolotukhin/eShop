@@ -8,7 +8,7 @@ import RemoveIcon from '@mui/icons-material/Remove'
 import { Button, Card, CardContent, CardMedia, Typography } from '@mui/material'
 
 interface CartItemProps {
-  id: number
+  id: string
   name: string
   photo: string
   price: number

@@ -1,9 +1,10 @@
 import { db } from '@/main'
+import { createAppAsyncThunk } from '@/utils/create-app-async-thunk'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { get, push, ref } from 'firebase/database'
 
 export interface ProductState {
-  items: { id: number; name: string; photo: string; price: number; quantity: number }[]
+  items: { id: string; name: string; photo: string; price: number; quantity: number }[]
 }
 
 const initialState: ProductState = {
@@ -21,20 +22,39 @@ export const fetchProducts = createAsyncThunk('product/fetchProducts', async () 
   return []
 })
 
-export const sendProduct = createAsyncThunk('product/sendProduct', async data => {
-  try {
-    await push(ref(db, 'items'), data)
-    console.log('Data sent successfully')
-  } catch (error) {
-    console.error('Error sending data:', error)
+export const addProduct = createAppAsyncThunk(
+  'product/addProduct',
+  async (item: { id: string; name: string; photo: string; price: number; quantity: number }) => {
+    try {
+      await push(ref(db, 'items'), item)
+      console.log('Data sent successfully')
+
+      // Получаем обновленные данные после добавления продукта
+      const dataRef = ref(db, 'items')
+      const snapshot = await get(dataRef)
+
+      if (snapshot.exists()) {
+        return snapshot.val()
+      }
+
+      return []
+    } catch (error) {
+      console.error('Error sending data:', error)
+
+      return [] // Возвращаем пустой массив в случае ошибки
+    }
   }
-})
+)
 
 const productSlice = createSlice({
   extraReducers: builder => {
-    builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      state.items = action.payload
-    })
+    builder
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.items = action.payload
+      })
+      .addCase(addProduct.fulfilled, (state, action) => {
+        state.items = action.payload
+      })
   },
   initialState,
   name: 'product',
@@ -45,7 +65,7 @@ const productSlice = createSlice({
     setItems: (
       state,
       action: PayloadAction<
-        { id: number; name: string; photo: string; price: number; quantity: number }[]
+        { id: string; name: string; photo: string; price: number; quantity: number }[]
       >
     ) => {
       state.items = action.payload
@@ -53,5 +73,5 @@ const productSlice = createSlice({
   },
 })
 
-export const { setItems } = productSlice.actions
+export const { addItem, setItems } = productSlice.actions
 export default productSlice.reducer
