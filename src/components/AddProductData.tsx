@@ -8,7 +8,7 @@ import { addProduct } from '../features/product/productSlice'
 
 const AddProductData = () => {
   const dispatch = useAppDispatch()
-
+  //добавить инпут для ввода характеристик товара
   const productId = uuidv4()
   const sendProductData = () => {
     const items = {
