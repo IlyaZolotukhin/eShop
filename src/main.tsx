@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import store from '@/store'
 import { initializeApp } from 'firebase/app'
 import { getDatabase } from 'firebase/database'
+import { getStorage } from 'firebase/storage'
 import { createRoot } from 'react-dom/client'
 
 import 'firebase/compat/auth'
@@ -26,6 +27,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 
 export const db = getDatabase(app)
+
+export const storage = getStorage(app)
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>
