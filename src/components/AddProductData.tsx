@@ -1,18 +1,19 @@
 import { ChangeEvent, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { useAppDispatch } from '@/store'
+import {RootState, useAppDispatch} from '@/store'
 import { FileUploader } from '@/utils/FileUploader'
 import { Button, Card, CardContent, TextField, Typography } from '@mui/material'
 import { v4 } from 'uuid'
 
 import { addProduct } from '../features/product/productSlice'
+import {useSelector} from "react-redux";
 
 const AddProductData = () => {
+  const uploadImg = useSelector((state: RootState) => state.upload.uploadImg)
   const [productName, setProductName] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productQuantity, setProductQuantity] = useState('')
-  const [imageUrls, setImageUrls] = useState<string>('')
 
   const handleChangeName = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setProductName(e.currentTarget.value)
@@ -26,18 +27,14 @@ const AddProductData = () => {
     setProductQuantity(e.currentTarget.value)
   }
 
-  const handleImageUpload = (url: string) => {
-    setImageUrls(url)
-  }
-
   const dispatch = useAppDispatch()
-  //добавить инпут для ввода характеристик товара
+
   const productId = v4()
   const sendProductData = () => {
     const items = {
       id: productId,
       name: productName,
-      photo: imageUrls,
+      photo: uploadImg,
       price: +productPrice,
       quantity: +productQuantity,
     }
@@ -62,7 +59,7 @@ const AddProductData = () => {
             Quantity product: <TextField onChange={handleChangeQuantity} />
           </Typography>
           <Typography component={'div'} sx={{ flexGrow: 1 }} variant={'h6'}>
-            Image product: <FileUploader onImageUpload={handleImageUpload} />
+            Image product: <FileUploader />
           </Typography>
           <Button component={Link} onClick={sendProductData} to={'/'} variant={'contained'}>
             Add product

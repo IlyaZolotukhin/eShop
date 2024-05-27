@@ -4,11 +4,13 @@ import { ThunkAction, UnknownAction, configureStore } from '@reduxjs/toolkit'
 
 import cartReducer from './features/cart/cartSlice'
 import productReducer from './features/product/productSlice'
+import uploadReducer from './features/product/uploadSlice'
 
 const store = configureStore({
   reducer: {
     cart: cartReducer,
     product: productReducer,
+    upload: uploadReducer,
   },
 })
 
