@@ -3,20 +3,20 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { Button, Card, CardContent, Typography } from '@mui/material'
-
+import { v4 } from 'uuid'
 import { RootState } from '../store'
 
 const Checkout: React.FC = () => {
   const items = useSelector((state: RootState) => state.cart.items)
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-
+  const orderNumber = v4()
   const handlePlaceOrder = () => {}
 
   return (
     <Card>
       <CardContent>
         <Typography component={'div'} variant={'h5'}>
-          Checkout
+          Checkout # {orderNumber}
         </Typography>
         {items.map(item => (
           <div key={item.id}>

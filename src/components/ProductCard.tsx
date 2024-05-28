@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { addItem, increaseItem } from '@/features/cart/cartSlice'
@@ -18,6 +18,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, name, photo, price, quant
   const itemInCart = useSelector((state: RootState) =>
     state.cart.items.find(item => item.id === id)
   )
+  const [available, setAvailable] = useState(false)
+
+  useEffect(() => {
+    if(quantity === 0) setAvailable(true)
+  }, [quantity])
 
   const handleAddToCart = () => {
     if (!itemInCart) {
@@ -33,13 +38,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, name, photo, price, quant
         <Typography component={'div'} variant={'h5'}>
           {name}
         </Typography>
-        <CardMedia alt={name} component={'img'} height={'250'} image={photo} />
+        <CardMedia style={available ? {opacity:0.5}:{}} alt={name} component={'img'} height={'250'} image={photo} />
         <Typography color={'text.secondary'} variant={'body1'}>
           Price: ${price}
         </Typography>
-        <Button onClick={handleAddToCart} variant={'contained'}>
+        <Button disabled={available} onClick={handleAddToCart} variant={'contained'}>
           Add to Cart
         </Button>
+        {available ? <Typography component={'div'} variant={'h5'}>Not available
+        </Typography>:<Typography component={'div'} variant={'h5'}>
+        </Typography>}
       </CardContent>
     </Card>
   )
