@@ -39,15 +39,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, name, photo, price, quant
           {name}
         </Typography>
         <CardMedia style={available ? {opacity:0.5}:{}} alt={name} component={'img'} height={'250'} image={photo} />
-        <Typography color={'text.secondary'} variant={'body1'}>
+        {available ? <Typography style={{position:'relative', bottom:'140px'}} component={'div'} variant={'h5'}>Not available
+        </Typography>:<Typography component={'div'} variant={'h5'}>
+        </Typography>}
+        {available ? <Typography variant={'body1'}>
+        </Typography> : <Typography color={'text.secondary'} variant={'body1'}>
           Price: ${price}
-        </Typography>
+        </Typography>}
         <Button disabled={available} onClick={handleAddToCart} variant={'contained'}>
           Add to Cart
         </Button>
-        {available ? <Typography component={'div'} variant={'h5'}>Not available
-        </Typography>:<Typography component={'div'} variant={'h5'}>
-        </Typography>}
+
       </CardContent>
     </Card>
   )
