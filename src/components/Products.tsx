@@ -12,9 +12,9 @@ const Products: React.FC = () => {
   const products = Object.values(items)
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} justifyContent={"center"} >
       {products.map(product => (
-        <Grid item key={product.id}>
+        <Grid width={'300px'} item key={product.id}>
           <ProductCard
             id={product.id}
             key={product.id}

@@ -15,6 +15,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 import s from './CreditCardForm.module.css'
+import {Link} from "react-router-dom";
 
 // @ts-ignore
 const CreditCardForm: React.FC = ({ onSubmit }) => {
@@ -64,7 +65,7 @@ const CreditCardForm: React.FC = ({ onSubmit }) => {
               <div>Your order has been successfully paid</div>
             </DialogContent>
             <DialogActions>
-              <Button autoFocus color={'primary'} onClick={handleClose}>
+              <Button autoFocus color={'primary'} onClick={handleClose} component={Link} to={'/'}>
                 CLOSE
               </Button>
             </DialogActions>
