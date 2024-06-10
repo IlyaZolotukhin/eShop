@@ -9,7 +9,7 @@ import { createRoot } from 'react-dom/client'
 
 import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
-
+import { getAuth } from "firebase/auth"
 import App from './App'
 
 // Initialize Firebase
@@ -29,6 +29,8 @@ const app = initializeApp(firebaseConfig)
 export const db = getDatabase(app)
 
 export const storage = getStorage(app)
+
+export const auth = getAuth(app)
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>

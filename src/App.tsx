@@ -23,10 +23,12 @@ import Checkout from './components/Checkout'
 import {fetchProducts} from './features/product/productSlice'
 import {RootState, useAppDispatch} from './store'
 import {AccountCircle} from "@mui/icons-material"
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import SignUp from "@/components/auth/SignUp";
 
 const App: React.FC = () => {
     /*const [auth, setAuth] = React.useState(true);*/
-    const auth = true
+    const auth = false
     const [anchorMenuEl, setAnchorMenuEl] = React.useState<null | HTMLElement>(null);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const items = useSelector((state: RootState) => state.cart.items)
@@ -118,7 +120,7 @@ const App: React.FC = () => {
                         </Typography>
                     </div>
 
-                    {auth && (
+                    {auth ? (
                         <div>
                             <IconButton
                                 size="large"
@@ -171,7 +173,14 @@ const App: React.FC = () => {
                                 <MenuItem onClick={handleToPay}><PaymentIcon/> Pay for the order</MenuItem>
                             </Menu>
                         </div>
-                    )}
+                    ) : <IconButton
+                        size="large"
+                        aria-label="Create account"
+                        color="inherit"
+                        component={Link} to={'/signUp'}
+                    >
+                        <PersonAddIcon/>
+                    </IconButton>}
                 </Toolbar>
             </AppBar>
             <Container className={s.container}>
@@ -181,6 +190,7 @@ const App: React.FC = () => {
                     <Route element={<Cart/>} path={'/cart'}/>
                     <Route element={<Checkout/>} path={'/checkout'}/>
                     <Route element={<CreditCardForm/>} path={'/payment'}/>
+                    <Route element={<SignUp/>} path={'/signUp'}/>
                     <Route element={<Error404/>} path={'*'}/>
                 </Routes>
             </Container>
