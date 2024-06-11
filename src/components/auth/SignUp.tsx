@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import * as Yup from "yup";
 import {useFormik} from "formik";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField, Typography} from "@mui/material";
 import s from "@/components/CreditCardForm/CreditCardForm.module.css";
 import {Link} from "react-router-dom";
+import {auth} from "@/main";
+import { createUserWithEmailAndPassword } from "firebase/auth"
 
 // @ts-ignore
 const SignUp: React.FC = ({ onSubmit }) => {
@@ -29,15 +31,21 @@ const SignUp: React.FC = ({ onSubmit }) => {
     const formik = useFormik({
         initialValues,
         onSubmit: formData => {
-            localStorage.clear()
-            /*dispatch(deleteCart())*/
-            setOpen(true)
+            createUserWithEmailAndPassword(auth, formData.email, formData.password)
+                .then((user) => {
+                    console.log(user)
+                    setOpen(true)
+                })
+                .catch((error) => {
+                    const errorMessage = error.message;
+                    console.log(errorMessage)
+                })
             onSubmit(formData)
         },
         validationSchema,
     })
 
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = useState(false)
 
     const handleClose = () => {
         setOpen(false)
@@ -53,7 +61,8 @@ const SignUp: React.FC = ({ onSubmit }) => {
                     <Dialog onClose={handleClose} open={open}>
                         <DialogTitle className={s.dialogTitle}>account message</DialogTitle>
                         <DialogContent>
-                            <div>Your are successfully registered</div>
+                      <Typography component={'div'} variant={'body2'}>Your are successfully
+                                registered</Typography>
                         </DialogContent>
                         <DialogActions>
                             <Button autoFocus color={'primary'} onClick={handleClose} component={Link} to={'/'}>
@@ -72,7 +81,6 @@ const SignUp: React.FC = ({ onSubmit }) => {
                             value={formik.values.email}
                             variant={'outlined'}
                         />
-
                         <TextField
                             error={formik.touched.password && Boolean(formik.errors.password)}
                             helperText={formik.touched.password && formik.errors.password}
@@ -83,7 +91,6 @@ const SignUp: React.FC = ({ onSubmit }) => {
                             value={formik.values.password}
                             variant={'outlined'}
                         />
-
                         <TextField
                             error={formik.touched.passwordRepeat && Boolean(formik.errors.passwordRepeat)}
                             helperText={formik.touched.passwordRepeat && formik.errors.passwordRepeat}
@@ -93,7 +100,6 @@ const SignUp: React.FC = ({ onSubmit }) => {
                             value={formik.values.passwordRepeat}
                             variant={'outlined'}
                         />
-
                         <Button color={'primary'} type={'submit'} variant={'contained'}>
                             Create account
                         </Button>
