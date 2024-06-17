@@ -4,13 +4,19 @@ import {useFormik} from "formik";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField, Typography} from "@mui/material";
 import s from "@/components/CreditCardForm/CreditCardForm.module.css";
 import {Link} from "react-router-dom";
-import {auth} from "@/main";
-import { createUserWithEmailAndPassword } from "firebase/auth"
 
-// @ts-ignore
-const SignUp: React.FC = ({ onSubmit }) => {
-    /*const dispatch = useDispatch()*/
-    const initialValues = {
+import {signUp} from "@/features/auth/authSlice";
+import {useAppDispatch} from "@/store";
+
+export type LoginParamsType = {
+    email: string,
+    password: string,
+    passwordRepeat: string,
+}
+
+const SignUp: React.FC = () => {
+    const dispatch = useAppDispatch()
+   const LoginParams = {
         email: '',
         password: '',
         passwordRepeat: '',
@@ -29,9 +35,13 @@ const SignUp: React.FC = ({ onSubmit }) => {
     })
 
     const formik = useFormik({
-        initialValues,
+        initialValues: LoginParams,
         onSubmit: formData => {
-            createUserWithEmailAndPassword(auth, formData.email, formData.password)
+            dispatch(signUp(formData)).then((user) => {
+                console.log(user)
+                setOpen(true)
+            })
+            /*createUserWithEmailAndPassword(auth, formData.email, formData.password)
                 .then((user) => {
                     console.log(user)
                     setOpen(true)
@@ -39,8 +49,8 @@ const SignUp: React.FC = ({ onSubmit }) => {
                 .catch((error) => {
                     const errorMessage = error.message;
                     console.log(errorMessage)
-                })
-            onSubmit(formData)
+                })*/
+            /*onSubmit(formData)*/
         },
         validationSchema,
     })
