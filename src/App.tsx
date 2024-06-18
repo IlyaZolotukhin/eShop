@@ -25,6 +25,8 @@ import {RootState, useAppDispatch} from './store'
 import {AccountCircle} from "@mui/icons-material"
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import SignUp from "@/components/auth/SignUp";
+import LoginIcon from '@mui/icons-material/Login';
+import SignIn from "@/components/auth/SignIn";
 
 const App: React.FC = () => {
     /*const [auth, setAuth] = React.useState(true);*/
@@ -173,14 +175,25 @@ const App: React.FC = () => {
                                 <MenuItem onClick={handleToPay}><PaymentIcon/> Pay for the order</MenuItem>
                             </Menu>
                         </div>
-                    ) : <IconButton
+                    ) : <div>   <IconButton
                         size="large"
                         aria-label="Create account"
                         color="inherit"
                         component={Link} to={'/signUp'}
                     >
                         <PersonAddIcon/>
-                    </IconButton>}
+                    </IconButton>
+                        <Typography color="inherit" component={'span'} variant={'body2'}>sign up or</Typography>
+                        <IconButton
+                        size="large"
+                        aria-label="Log in"
+                        color="inherit"
+                        component={Link} to={'/signIn'}
+                        >
+                        <LoginIcon/>
+                        </IconButton>
+                        <Typography color="inherit" component={'span'} variant={'body2'}>log in</Typography>
+                    </div>}
                 </Toolbar>
             </AppBar>
             <Container className={s.container}>
@@ -191,6 +204,7 @@ const App: React.FC = () => {
                     <Route element={<Checkout/>} path={'/checkout'}/>
                     <Route element={<CreditCardForm/>} path={'/payment'}/>
                     <Route element={<SignUp/>} path={'/signUp'}/>
+                    <Route element={<SignIn/>} path={'/signIn'}/>
                     <Route element={<Error404/>} path={'*'}/>
                 </Routes>
             </Container>

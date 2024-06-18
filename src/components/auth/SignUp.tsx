@@ -8,15 +8,15 @@ import {Link} from "react-router-dom";
 import {signUp} from "@/features/auth/authSlice";
 import {useAppDispatch} from "@/store";
 
-export type LoginParamsType = {
+/*type SignUpParamsType = {
     email: string,
     password: string,
     passwordRepeat: string,
-}
+}*/
 
 const SignUp: React.FC = () => {
     const dispatch = useAppDispatch()
-   const LoginParams = {
+   const SignUpParams = {
         email: '',
         password: '',
         passwordRepeat: '',
@@ -35,7 +35,7 @@ const SignUp: React.FC = () => {
     })
 
     const formik = useFormik({
-        initialValues: LoginParams,
+        initialValues: SignUpParams,
         onSubmit: formData => {
             dispatch(signUp(formData)).then((user) => {
                 console.log(user)
