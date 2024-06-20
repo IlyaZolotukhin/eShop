@@ -1,11 +1,11 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import {useDispatch} from 'react-redux'
 
-import { decreaseItem, increaseItem, removeItem } from '@/features/cart/cartSlice'
+import {decreaseItem, increaseItem, removeItem} from '@/features/cart/cartSlice'
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
 import RemoveIcon from '@mui/icons-material/Remove'
-import { Button, Card, CardContent, CardMedia, Typography } from '@mui/material'
+import {Button, Card, CardContent, CardMedia, Typography} from '@mui/material'
 
 interface CartItemProps {
   id: string
@@ -20,6 +20,7 @@ const CartItem: React.FC<CartItemProps> = ({ id, name, photo, price, quantity })
 
   const handleRemoveFromCart = () => {
     dispatch(removeItem(id))
+      localStorage.clear()
   }
 
   const handleDecreaseItem = () => {
@@ -27,6 +28,7 @@ const CartItem: React.FC<CartItemProps> = ({ id, name, photo, price, quantity })
       dispatch(decreaseItem(id))
     } else {
       dispatch(removeItem(id))
+      localStorage.clear()
     }
   }
 

@@ -6,17 +6,14 @@ import s from "@/components/CreditCardForm/CreditCardForm.module.css";
 import {Link} from "react-router-dom";
 
 import {signUp} from "@/features/auth/authSlice";
-import {useAppDispatch} from "@/store";
-
-/*type SignUpParamsType = {
-    email: string,
-    password: string,
-    passwordRepeat: string,
-}*/
+import {RootState, useAppDispatch} from "@/store";
+import {useSelector} from "react-redux";
 
 const SignUp: React.FC = () => {
     const dispatch = useAppDispatch()
-   const SignUpParams = {
+    const error = useSelector((state: RootState) => state.auth.error)
+
+    const SignUpParams = {
         email: '',
         password: '',
         passwordRepeat: '',
@@ -41,16 +38,6 @@ const SignUp: React.FC = () => {
                 console.log(user)
                 setOpen(true)
             })
-            /*createUserWithEmailAndPassword(auth, formData.email, formData.password)
-                .then((user) => {
-                    console.log(user)
-                    setOpen(true)
-                })
-                .catch((error) => {
-                    const errorMessage = error.message;
-                    console.log(errorMessage)
-                })*/
-            /*onSubmit(formData)*/
         },
         validationSchema,
     })
@@ -71,8 +58,9 @@ const SignUp: React.FC = () => {
                     <Dialog onClose={handleClose} open={open}>
                         <DialogTitle className={s.dialogTitle}>account message</DialogTitle>
                         <DialogContent>
-                      <Typography component={'div'} variant={'body2'}>Your are successfully
-                                registered</Typography>
+                            {error ? <Typography component={'div'} style={{color: 'red'}} variant={'body2'}>{error}</Typography>
+                                : <Typography component={'div'} style={{color: 'green'}} variant={'body2'}>Your are successfully
+                                registered</Typography>}
                         </DialogContent>
                         <DialogActions>
                             <Button autoFocus color={'primary'} onClick={handleClose} component={Link} to={'/'}>
@@ -97,7 +85,7 @@ const SignUp: React.FC = () => {
                             label={'password'}
                             name={'password'}
                             onChange={formik.handleChange}
-                            style={{ margin: '20px 0 20px 0' }}
+                            style={{margin: '20px 0 20px 0'}}
                             value={formik.values.password}
                             variant={'outlined'}
                         />

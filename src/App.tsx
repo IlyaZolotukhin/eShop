@@ -29,10 +29,9 @@ import LoginIcon from '@mui/icons-material/Login';
 import SignIn from "@/components/auth/SignIn";
 
 const App: React.FC = () => {
-    /*const [auth, setAuth] = React.useState(true);*/
-    const auth = false
     const [anchorMenuEl, setAnchorMenuEl] = React.useState<null | HTMLElement>(null);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const auth = useSelector((state: RootState) => state.auth.isAuthenticated);
     const items = useSelector((state: RootState) => state.cart.items)
     const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
     const quantity = items.reduce((sum, item) => sum + item.quantity, 0)
@@ -42,6 +41,13 @@ const App: React.FC = () => {
     useEffect(() => {
         dispatch(fetchProducts())
     }, [dispatch])
+
+    useEffect(() => {
+        if (items.length === 0) {
+            return
+        }
+        localStorage.setItem('cartItems', JSON.stringify(items))
+    }, [items])
 
     useEffect(() => {
         const savedCartItems = localStorage.getItem('cartItems')
@@ -77,6 +83,14 @@ const App: React.FC = () => {
     }
     const handleToPay = () => {
         navigate('/checkout')
+        setAnchorEl(null);
+    }
+    const handleSignUp = () => {
+        navigate('/signUp')
+        setAnchorEl(null);
+    }
+    const handleSignIn = () => {
+        navigate('/signIn')
         setAnchorEl(null);
     }
 
@@ -121,37 +135,35 @@ const App: React.FC = () => {
                             My Shop
                         </Typography>
                     </div>
-
-                    {auth ? (
-                        <div>
-                            <IconButton
-                                size="large"
-                                component={Link} to={'/cart'}
-                                style={{padding: '0'}}
-                                color="inherit"
-                            >
-                                <ShoppingCartIcon/>{quantity ? <Typography
-                                style={{position: 'relative', right: '16px', bottom: '6px', fontWeight: 'bold'}}
-                                color={'red'} component={'span'} variant={'body2'}>{quantity}
-                            </Typography>: ''}
-                            </IconButton>
-                            {total ? (
-                                <Typography color={'text.secondary'} component={'span'} variant={'h6'}>${total}
-                                </Typography>
-                            ) : (
-                                ''
-                            )}
-                            <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="user-appbar"
-                                aria-haspopup="true"
-                                onClick={handleUserMenu}
-                                color="inherit"
-                            >
-                                <AccountCircle/>
-                            </IconButton>
-                            <Menu
+                    <div>
+                        <IconButton
+                            size="large"
+                            component={Link} to={'/cart'}
+                            style={{padding: '0'}}
+                            color="inherit"
+                        >
+                            <ShoppingCartIcon/>{quantity ? <Typography
+                            style={{position: 'relative', right: '16px', bottom: '6px', fontWeight: 'bold'}}
+                            color={'red'} component={'span'} variant={'body2'}>{quantity}
+                        </Typography> : ''}
+                        </IconButton>
+                        {total ? (
+                            <Typography color={'text.secondary'} component={'span'} variant={'h6'}>${total}
+                            </Typography>
+                        ) : (
+                            ''
+                        )}
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="user-appbar"
+                            aria-haspopup="true"
+                            onClick={handleUserMenu}
+                            color="inherit"
+                        >
+                            <AccountCircle/>
+                        </IconButton>
+                        {auth ? (<Menu
                                 id="user-appbar"
                                 anchorEl={anchorEl}
                                 anchorOrigin={{
@@ -171,29 +183,28 @@ const App: React.FC = () => {
                                 <MenuItem onClick={handleToCart}><ShoppingCartIcon/>{quantity ? <Typography
                                     style={{position: 'relative', right: '16px', bottom: '6px', fontWeight: 'bold'}}
                                     color={'red'} component={'span'} variant={'body2'}>{quantity}
-                                </Typography>:''} Cart</MenuItem>
+                                </Typography> : ''} Cart</MenuItem>
                                 <MenuItem onClick={handleToPay}><PaymentIcon/> Pay for the order</MenuItem>
-                            </Menu>
-                        </div>
-                    ) : <div>   <IconButton
-                        size="large"
-                        aria-label="Create account"
-                        color="inherit"
-                        component={Link} to={'/signUp'}
-                    >
-                        <PersonAddIcon/>
-                    </IconButton>
-                        <Typography color="inherit" component={'span'} variant={'body2'}>sign up or</Typography>
-                        <IconButton
-                        size="large"
-                        aria-label="Log in"
-                        color="inherit"
-                        component={Link} to={'/signIn'}
-                        >
-                        <LoginIcon/>
-                        </IconButton>
-                        <Typography color="inherit" component={'span'} variant={'body2'}>log in</Typography>
-                    </div>}
+                            </Menu>) :
+                            (<Menu
+                                id="user-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                            >
+                                <MenuItem onClick={handleSignUp}><PersonAddIcon/> SignUp</MenuItem>
+                                <MenuItem onClick={handleSignIn}><LoginIcon/> SignIn</MenuItem>
+                            </Menu>)}
+                    </div>
                 </Toolbar>
             </AppBar>
             <Container className={s.container}>
