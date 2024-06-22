@@ -66,7 +66,6 @@ const authSlice = createSlice({
             state.error = '';
         },
         logOut(state) {
-            state.user = null;
             state.isAuthenticated = false;
             state.error = '';
         },

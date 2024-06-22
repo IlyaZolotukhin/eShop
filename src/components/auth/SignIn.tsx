@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import {useFormik} from "formik";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField, Typography} from "@mui/material";
 import s from "@/components/CreditCardForm/CreditCardForm.module.css";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 import {signIn} from "@/features/auth/authSlice";
 import {RootState, useAppDispatch} from "@/store";
@@ -16,6 +16,7 @@ export type LoginParamsType = {
 
 const SignIn: React.FC = () => {
     const dispatch = useAppDispatch()
+    const navigate = useNavigate();
     const error = useSelector((state: RootState) => state.auth.error)
 
     const LoginParams = {
@@ -47,7 +48,10 @@ const SignIn: React.FC = () => {
 
     const handleClose = () => {
         setOpen(false)
+        navigate("/");
     }
+
+    const message = error ? 'Error: ' + error : 'You are logged in to your account';
 
     return (
         <Grid className={s.form} container justifyContent={'center'}>
@@ -59,11 +63,12 @@ const SignIn: React.FC = () => {
                     <Dialog onClose={handleClose} open={open}>
                         <DialogTitle className={s.dialogTitle}>account message</DialogTitle>
                         <DialogContent>
-                            {error ? <Typography component={'div'} style={{color: 'red'}} variant={'body2'}>{error}</Typography>
-                                : <Typography component={'div'} style={{color: 'green'}} variant={'body2'}>You are logged into your account</Typography>}
+                            <Typography component={'div'} style={{color: error ? 'red' : 'green'}} variant={'body2'}>
+                                {message}
+                            </Typography>
                         </DialogContent>
                         <DialogActions>
-                            <Button autoFocus color={'primary'} onClick={handleClose} component={Link} to={'/'}>
+                            <Button autoFocus color={'primary'} onClick={handleClose}>
                                 CLOSE
                             </Button>
                         </DialogActions>

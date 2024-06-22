@@ -27,6 +27,8 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import SignUp from "@/components/auth/SignUp";
 import LoginIcon from '@mui/icons-material/Login';
 import SignIn from "@/components/auth/SignIn";
+import LogoutIcon from '@mui/icons-material/Logout';
+import {logOut} from "@/features/auth/authSlice";
 
 const App: React.FC = () => {
     const [anchorMenuEl, setAnchorMenuEl] = React.useState<null | HTMLElement>(null);
@@ -91,6 +93,10 @@ const App: React.FC = () => {
     }
     const handleSignIn = () => {
         navigate('/signIn')
+        setAnchorEl(null);
+    }
+    const handleLogOut = () => {
+        dispatch(logOut())
         setAnchorEl(null);
     }
 
@@ -185,6 +191,7 @@ const App: React.FC = () => {
                                     color={'red'} component={'span'} variant={'body2'}>{quantity}
                                 </Typography> : ''} Cart</MenuItem>
                                 <MenuItem onClick={handleToPay}><PaymentIcon/> Pay for the order</MenuItem>
+                                <MenuItem onClick={handleLogOut}><LogoutIcon/> LogOut</MenuItem>
                             </Menu>) :
                             (<Menu
                                 id="user-appbar"

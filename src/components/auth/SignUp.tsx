@@ -3,15 +3,16 @@ import * as Yup from "yup";
 import {useFormik} from "formik";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField, Typography} from "@mui/material";
 import s from "@/components/CreditCardForm/CreditCardForm.module.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 import {signUp} from "@/features/auth/authSlice";
 import {RootState, useAppDispatch} from "@/store";
 import {useSelector} from "react-redux";
 
 const SignUp: React.FC = () => {
-    const dispatch = useAppDispatch()
-    const error = useSelector((state: RootState) => state.auth.error)
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const error = useSelector((state: RootState) => state.auth.error);
 
     const SignUpParams = {
         email: '',
@@ -46,6 +47,7 @@ const SignUp: React.FC = () => {
 
     const handleClose = () => {
         setOpen(false)
+        navigate("/");
     }
 
     return (
