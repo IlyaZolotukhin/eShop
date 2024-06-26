@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import {useFormik} from "formik";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField, Typography} from "@mui/material";
 import s from "@/components/CreditCardForm/CreditCardForm.module.css";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 import {signUp} from "@/features/auth/authSlice";
 import {RootState, useAppDispatch} from "@/store";
@@ -65,7 +65,7 @@ const SignUp: React.FC = () => {
                                 registered</Typography>}
                         </DialogContent>
                         <DialogActions>
-                            <Button autoFocus color={'primary'} onClick={handleClose} component={Link} to={'/'}>
+                            <Button autoFocus color={'primary'} onClick={handleClose}>
                                 CLOSE
                             </Button>
                         </DialogActions>

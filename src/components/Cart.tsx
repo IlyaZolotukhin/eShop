@@ -59,7 +59,7 @@ const Cart: React.FC = () => {
                     />
                 ))}
                 <Typography color={'text.secondary'} variant={'body1'}>
-                    Total: ${total}
+                    Total: ₽ {total}
                 </Typography>
             </CardContent>
         </Card>

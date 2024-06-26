@@ -149,12 +149,12 @@ const App: React.FC = () => {
                             color="inherit"
                         >
                             <ShoppingCartIcon/>{quantity ? <Typography
-                            style={{position: 'relative', right: '16px', bottom: '6px', fontWeight: 'bold'}}
-                            color={'red'} component={'span'} variant={'body2'}>{quantity}
+                            style={{backgroundColor:'red', position: 'relative', right: '16px', bottom: '6px', fontSize: '8px', border:'1px solid red', borderRadius: '6px', padding: '0 4px 0 4px'}}
+                            color={'white'} component={'span'} >{quantity}
                         </Typography> : ''}
                         </IconButton>
                         {total ? (
-                            <Typography color={'text.secondary'} component={'span'} variant={'h6'}>${total}
+                            <Typography color={'text.secondary'} component={'span'} variant={'h6'}>₽ {total}
                             </Typography>
                         ) : (
                             ''

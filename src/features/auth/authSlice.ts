@@ -2,7 +2,11 @@ import {createSlice} from '@reduxjs/toolkit'
 import {createAppAsyncThunk} from "@/utils/create-app-async-thunk";
 import {auth} from "@/main";
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import {LoginParamsType} from "@/components/auth/SignIn";
+
+export type LoginParamsType = {
+    email: string,
+    password: string,
+}
 
 export type AuthState = {
     error: string,
@@ -10,10 +14,10 @@ export type AuthState = {
     isAuthenticated: boolean,
 }
 
-type User = {
-    email: any;
+/*type User = {
+    email: string;
     password: string;
-}
+}*/
 
 const initialState: AuthState = {
     error: '',
@@ -40,8 +44,11 @@ export const signIn = createAppAsyncThunk(
     async (formData: LoginParamsType, thunkAPI) => {
         const { dispatch } = thunkAPI
         try {
-            await signInWithEmailAndPassword(auth, formData.email, formData.password);
-            dispatch(logIn());
+            const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password)
+
+                    dispatch(logIn());
+                    const user = userCredential.user;
+            console.log(user)
         } catch (error: any) {
             const errorCode = error.code;
             dispatch(setError(errorCode));
@@ -54,7 +61,7 @@ const authSlice = createSlice({
     name: 'auth',
     reducers: {
         createUser(state, action) {
-            const user: User = action.payload.user;
+            const user: LoginParamsType = action.payload.user;
             state.user = {
                 email: user.email,
                 password: user.password

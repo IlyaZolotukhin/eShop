@@ -44,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, name, photo, price, quant
         </Typography>}
         {available ? <Typography variant={'body1'}>
         </Typography> : <Typography color={'text.secondary'} variant={'body1'}>
-          Price: ${price}
+          Price: ₽ {price}
         </Typography>}
         <Button disabled={available} onClick={handleAddToCart} variant={'contained'}>
           Add to Cart

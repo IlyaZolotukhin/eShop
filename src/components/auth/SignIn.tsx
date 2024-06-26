@@ -9,11 +9,6 @@ import {signIn} from "@/features/auth/authSlice";
 import {RootState, useAppDispatch} from "@/store";
 import {useSelector} from "react-redux";
 
-export type LoginParamsType = {
-    email: string,
-    password: string,
-}
-
 const SignIn: React.FC = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate();

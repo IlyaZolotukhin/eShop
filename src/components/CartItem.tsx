@@ -44,7 +44,7 @@ const CartItem: React.FC<CartItemProps> = ({ id, name, photo, price, quantity })
         </Typography>
         <CardMedia alt={name} component={'img'} image={photo} style={{ height: 100, width: 100 }} />
         <Typography color={'text.secondary'} variant={'body1'}>
-          Price: ${price}
+          Price: ₽ {price}
         </Typography>
         <Typography color={'text.secondary'} variant={'body1'}>
           <Button onClick={handleRemoveFromCart} variant={'outlined'}>
