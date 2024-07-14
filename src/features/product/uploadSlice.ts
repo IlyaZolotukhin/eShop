@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {storage} from '@/main'
 import {getDownloadURL, ref, uploadBytes} from 'firebase/storage'
 import {v4} from 'uuid'
+import {storage} from "@/firebase";
 
 interface UploadState {
     loading: boolean

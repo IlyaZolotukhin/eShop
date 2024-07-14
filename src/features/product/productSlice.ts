@@ -1,14 +1,16 @@
-import { db } from '@/main'
 import { createAppAsyncThunk } from '@/utils/create-app-async-thunk'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { get, push, ref } from 'firebase/database'
+import {db} from "@/firebase";
 
 export interface ProductState {
   items: { id: string; name: string; photo: string; price: number; quantity: number }[]
+    loading: boolean
 }
 
 const initialState: ProductState = {
   items: [],
+    loading: false
 }
 
 export const fetchProducts = createAsyncThunk('product/fetchProducts', async () => {
@@ -49,12 +51,26 @@ export const addProduct = createAppAsyncThunk(
 const productSlice = createSlice({
   extraReducers: builder => {
     builder
+        .addCase(fetchProducts.pending, (state) => {
+            state.loading = true
+        })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.items = action.payload
+          state.loading = false
+          state.items = action.payload
       })
-      .addCase(addProduct.fulfilled, (state, action) => {
-        state.items = action.payload
-      })
+        .addCase(fetchProducts.rejected, (state) => {
+            state.loading = false
+        })
+        .addCase(addProduct.pending, (state) => {
+            state.loading = true
+        })
+        .addCase(addProduct.fulfilled, (state, action) => {
+            state.loading = false
+            state.items = action.payload
+        })
+        .addCase(addProduct.rejected, (state) => {
+            state.loading = false
+        })
   },
   initialState,
   name: 'product',

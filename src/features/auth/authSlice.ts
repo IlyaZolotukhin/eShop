@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {createAppAsyncThunk} from "@/utils/create-app-async-thunk";
-import {auth} from "@/main";
+import {auth} from "@/firebase";
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 
 export type LoginParamsType = {
@@ -46,8 +46,8 @@ export const signIn = createAppAsyncThunk(
         try {
             const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password)
 
-                    dispatch(logIn());
-                    const user = userCredential.user;
+            dispatch(logIn());
+            const user = userCredential.user;
             console.log(user)
         } catch (error: any) {
             const errorCode = error.code;

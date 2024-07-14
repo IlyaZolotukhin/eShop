@@ -62,7 +62,7 @@ const SignUp: React.FC = () => {
                         <DialogContent>
                             {error ? <Typography component={'div'} style={{color: 'red'}} variant={'body2'}>{error}</Typography>
                                 : <Typography component={'div'} style={{color: 'green'}} variant={'body2'}>Your are successfully
-                                registered</Typography>}
+                                    registered</Typography>}
                         </DialogContent>
                         <DialogActions>
                             <Button autoFocus color={'primary'} onClick={handleClose}>
