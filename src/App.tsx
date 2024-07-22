@@ -101,7 +101,6 @@ const App: React.FC = () => {
     }
 
     return (
-
         <Box sx={{flexGrow: 2}}>
             <AppBar position="fixed">
                 <Toolbar style={{display: 'flex', justifyContent: 'space-between'}}>
